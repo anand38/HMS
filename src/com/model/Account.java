@@ -3,7 +3,8 @@ package com.model;
 import java.sql.*;
 
 /**
- * Created by anand38 on 7/5/17.
+ * Created by anand38 on 7/5/2017
+ * This class does databse operations for login and signup for HR as well as Candidates
  */
 public class Account {
     String user = "root";
@@ -81,4 +82,5 @@ public class Account {
         dbClose();
         return name;
     }
+
 }

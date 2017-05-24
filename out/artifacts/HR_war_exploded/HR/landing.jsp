@@ -37,6 +37,16 @@
     </script>
 </head>
 <body>
+<%
+    response.setHeader("Cache-Control","no-cache");
+    response.setHeader("Cache-Control","no-store");
+    response.setHeader("Pragma","no-cache");
+    response.setDateHeader ("Expires", 0);
+
+    if(session.getAttribute("session_flag")==null)
+        response.sendRedirect("index.jsp");
+
+%>
 
 <div class="wrapper">
     <!-- Sidebar Holder -->

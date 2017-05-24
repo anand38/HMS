@@ -17,6 +17,8 @@
     <title>JOB POST</title>
 
     <script src="assets/js/sweetalert2.min.js"></script>
+
+
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
@@ -37,12 +39,22 @@
     <br><br>
     <form class="form-horizontal" id="postform" method="post" action="/Controller">
         <input type="hidden" name="action" value="frompostjob">
-        <div class="form-group">
+        <div class="form-group ui-widget">
             <label for="position" class="col-sm-2 control-label">Position</label>
             <div class="col-sm-10 col-md-8 col-lg-6">
-                <input type="text" class="form-control" id="position" name="position" placeholder="Job Position" required>
+                <input type="text" class="form-control" id="position" list="positionsuggestions" name="position" placeholder="Job Position" required>
+                <datalist id="positionsuggestions">
+                    <option value="Software Engineer">
+                    <option value="Technical Lead">
+                    <option value="Database Administrator">
+                    <option value="Project Manager">
+                    <option value="System Engineer">
+                    <option value="Junior Consultant">
+                    <option value="Hadoop Developer">
+                </datalist>
             </div>
         </div>
+
         <div class="form-group">
             <label for="salary" class="col-sm-2 control-label">Salary</label>
             <div class="col-sm-10 col-md-8 col-lg-6">
@@ -58,7 +70,13 @@
         <div class="form-group">
             <label for="location" class="col-sm-2 control-label">Job location</label>
             <div class="col-sm-10 col-md-8 col-lg-6">
-                <input type="text" class="form-control" id="location" name="location" placeholder="Job location" required>
+                <input type="text" class="form-control" id="location" list="locationsuggestions" name="location" placeholder="Job location" required>
+                <datalist id="locationsuggestions">
+                    <option value="Mumbai">
+                    <option value="Delhi">
+                    <option value="Kolkata">
+                    <option value="Chennai">
+                </datalist>
             </div>
         </div>
         <div class="form-group">
@@ -86,14 +104,17 @@
 
 
     <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery Nicescroll CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.8-fix/jquery.nicescroll.min.js"></script>
 
     <script type="text/javascript">
+
+
         $(document).ready(function () {
+
             $("#sidebar").niceScroll({
                 cursorcolor: '#53619d',
                 cursorwidth: 4,
@@ -117,7 +138,6 @@
                     $('#description').val().trim() == '' ||
                     $('#opening').val().trim() == '' ){
                 swal("Oops","You probably have entered only spaces in some fields",'error');
-
             }
             else {
                 $.ajax({
@@ -125,7 +145,7 @@
                     type: form.attr('method'),
                     data: form.serialize(),
                     success: function (data) {
-                        $('#response').text(data);
+                        swal('',data,'success');
                     }
                 });
 
