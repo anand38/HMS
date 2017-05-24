@@ -7,8 +7,6 @@ import java.util.HashMap;
  * Here all the Id's assigned to position are defined
  */
 public class JobID {
-    public static String[] designation={"Software Engineer","Technical Lead","Database Administrator","Project Manager",
-    "System Engineer","JuniorConsultant","HadoopDeveloper"};
 
    static HashMap<String,Integer> map=new HashMap<>();
     private static void populatejobId(){

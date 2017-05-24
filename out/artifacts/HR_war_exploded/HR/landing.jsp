@@ -34,6 +34,11 @@
             $("#content").empty();
             $("#content").load("HR/postjob.jsp");
         }
+        function getAllPosts() {
+            $("#content").empty();
+            $("#content").load("HR/posts.jsp");
+
+        }
     </script>
 </head>
 <body>
@@ -45,7 +50,6 @@
 
     if(session.getAttribute("session_flag")==null)
         response.sendRedirect("index.jsp");
-
 %>
 
 <div class="wrapper">
@@ -92,7 +96,7 @@
             <li><a href="#" onclick="getHome()">Home</a></li>
             <li><a href="#" onclick="getpostjob()">Post JOB</a></li>
             <li><a href="#" onclick="getApplications()">View Applicants</a></li>
-            <li><a href="#" >All job posts</a></li>
+            <li><a href="#" onclick="getAllPosts()">All job posts</a></li>
             <li><a href="#">Edit your profile</a></li>
             <li>
             <a href="<%= request.getContextPath() %>/AccountController?action=logout">Logout</a>

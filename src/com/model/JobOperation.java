@@ -1,9 +1,9 @@
 package com.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.bean.Post;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by anand38 on 24/5/17.
@@ -40,5 +40,35 @@ public class JobOperation {
     pstmt.setString(8,stringdate);
     pstmt.executeUpdate();
     dbClose();
+    }
+
+    public ArrayList<Post> getPosts() throws SQLException, ClassNotFoundException {
+        ArrayList<Post> list=new ArrayList();
+        dbConnect();
+        String sql="select * from JOB";
+        PreparedStatement pstmt=con.prepareStatement(sql);
+        ResultSet rst=pstmt.executeQuery();
+        while (rst.next()){
+        Post p=new Post();
+        p.setJobid(rst.getInt("job_id"));
+        p.setPosition(rst.getString("position"));
+        p.setSalary(rst.getString("salary"));
+        p.setLocation(rst.getString("location"));
+
+        String temp=rst.getString("eligibility").replace("\r\n","<BR>");
+        String eligibility=temp.replace("\n","<BR>");
+        p.setEligibility(eligibility);
+
+        temp=rst.getString("description").replace("\r\n","<BR>");
+        String description=temp.replace("\n","<BR>");
+        p.setDescription(description);
+
+        p.setOpenings(rst.getString("openings"));
+        p.setDate_of_post(rst.getString("date_of_post"));
+
+        list.add(p);
+        }
+        dbClose();
+        return list;
     }
 }
