@@ -17,12 +17,14 @@
   <title>Login</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link href="assets/css/sweetalert2.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/css/form-elements.css">
   <link rel="stylesheet" href="assets/css/style.css">
-
+  <script src="assets/js/sweetalert2.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -36,7 +38,19 @@
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+<style>
 
+    .sa-button-container {
+        -webkit-order: 2;
+        order: 2;
+
+    }
+    .sa-button-container{
+        -webkit-order: 1;
+        order: 1;
+
+    }
+</style>
 </head>
 
 <body>
@@ -77,7 +91,9 @@
                   <input type="radio" name="loginas" value="Candidate" required>&nbsp;&nbsp;Candidate
               </div>
               <button type="submit" class="btn">Sign in!</button>
-            </form>
+            </form><br>
+            <a href="#">Forgot Password?</a><br>
+            <a href="#" id="chooseforRegister">Don't have an account? Register here</a>
           </div>
         </div>
       </div>
@@ -97,7 +113,31 @@
 <!--[if lt IE 10]>
 <script src="assets/js/placeholder.js"></script>
 <![endif]-->
-
+<script>
+ $('#chooseforRegister').click(function () {
+     swal({
+         title: '',
+         text: "Select the one you are",
+         type: 'question',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#73D776',
+         confirmButtonText: 'HR Register',
+         cancelButtonText: 'Candidate Register',
+         confirmButtonClass: 'btn btn-success',
+         cancelButtonClass: 'btn btn-danger',
+         buttonsStyling: true
+     }).then(function () {
+      window.location.href="Controller?action=gotohrregister";
+     }, function (dismiss) {
+         // dismiss can be 'cancel', 'overlay',
+         // 'close', and 'timer'
+         if (dismiss === 'cancel') {
+             window.location.href="Controller?action=gotocandidateregister";
+         }
+     })
+ });
+</script>
 </body>
 
 </html>

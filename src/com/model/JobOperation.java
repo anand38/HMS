@@ -28,7 +28,7 @@ public class JobOperation {
 
     public void insertPost(int randomId, String position, String salary, String location, String opening, String eligibility, String description, String stringdate) throws SQLException, ClassNotFoundException {
     dbConnect();
-    String sql="insert into JOB values(?,?,?,?,?,?,?,?)";
+    String sql="insert into JOB(job_id,position,salary,location,openings,eligibility,description,date_of_post) values(?,?,?,?,?,?,?,?)";
     PreparedStatement pstmt=con.prepareStatement(sql);
     pstmt.setInt(1,randomId);
     pstmt.setString(2,position);

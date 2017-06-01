@@ -56,7 +56,12 @@ public class Controller extends HttpServlet {
             response.getWriter().write("Post Successful");
         }
 
-
+        if (action.equalsIgnoreCase("gotohrregister")){
+            request.getRequestDispatcher("HR/register.jsp").forward(request,response);
+        }
+        if (action.equalsIgnoreCase("gotocandidateregister")){
+            request.getRequestDispatcher("Candidate/register.jsp").forward(request,response);
+        }
     }
 
 }

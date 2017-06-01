@@ -72,7 +72,7 @@
 
 %>
 <div class="row">
-    <div class="col-lg-offset-2 col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 w3-card">
+    <div class="col-lg-offset-2 col-lg-9 col-lg-offset-1 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 w3-card">
         <!--JOB ID: <%= jobid %><br>-->
         <div style="color: rgba(165,81,31,0.98);
         font-size: large;
