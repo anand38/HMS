@@ -1,5 +1,9 @@
+//This servlet is responsible to handle candidate registration and upload his/her resume
+
+
 package com.controller;
 
+import com.model.Account;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -31,6 +35,7 @@ public class Updater extends HttpServlet {
             String gender="";
             String dob="";
             String contact="";
+            String resume="";
 
             String UPLOAD_DIRECTORY="/home/anand38/ZVersions/HR1/web/Uploads/Candidate"; //Directory name here
             FileItemFactory factory = new DiskFileItemFactory();
@@ -87,8 +92,9 @@ public class Updater extends HttpServlet {
 
                 } else {
                     try {
-                        String itemName = item.getName();
-                        File savedFile = new File(UPLOAD_DIRECTORY +File.separator + itemName);
+                        resume= item.getName();
+                        System.out.println("Itemname:"+resume);
+                        File savedFile = new File(UPLOAD_DIRECTORY +File.separator + resume);
                         item.write(savedFile);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -97,6 +103,23 @@ public class Updater extends HttpServlet {
             }
 
             //enter data in database
+            Account account = new Account();
+            try {
+                account.registerCandidate(email, password, highest_degree, course,
+                        specialization, monthofyop + " " + yearofyop, name, gender, dob, contact,resume);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            account=null;
+            File f=new File("/home/anand38/ZVersions/HR1/web/Uploads/Candidate/"+resume);
+            try{
+                if (f.delete())
+                    System.out.println("File deleted");
+                else System.out.println("File not deleted");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             System.out.println(email+password+highest_degree+college_name+course+specialization+monthofyop+yearofyop+name+gender+dob+contact);
         }
 

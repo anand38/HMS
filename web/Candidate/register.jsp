@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1  col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" style="text-align: right;margin-top: 2%">
-        Already a member? <a href="#">Click here</a> to login
+        Already a member? <a href="<%= request.getContextPath() %>/Controller">Click here</a> to login
     </div>
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1  col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1"
          style="background: rgba(255,249,24,0.49);padding: 15px; font-size: larger"

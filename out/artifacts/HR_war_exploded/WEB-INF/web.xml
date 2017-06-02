@@ -18,6 +18,10 @@
         <servlet-name>Updater</servlet-name>
         <servlet-class>com.controller.Updater</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JsonProvider</servlet-name>
+        <servlet-class>com.controller.JsonProvider</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/Controller</url-pattern>
@@ -29,5 +33,9 @@
     <servlet-mapping>
         <servlet-name>Updater</servlet-name>
         <url-pattern>/Updater</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JsonProvider</servlet-name>
+        <url-pattern>/JsonProvider</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,4 +1,6 @@
-<%--
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="com.bean.JsonProvider" %>
+<%@ page import="org.json.JSONArray" %><%--
   Created by IntelliJ IDEA.
   User: anand38
   Date: 7/5/17
@@ -40,7 +42,15 @@
 
         }
     </script>
+    <style>
+        .w3-card{
+            box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
 </head>
+
 <body>
 <%
     response.setHeader("Cache-Control","no-cache");
@@ -119,27 +129,67 @@
                 </div>
             </div>
         </nav>
+    <div class="row">
+        <form method="post" id="searchform" action="/Controller">
+            <input type="hidden" name="action" value="fromsearchjob">
 
-        <h2>Collapsible Sidebar Using Bootstrap 3</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="col-lg-offset-1 col-lg-9 col-md-offset-1 col-md-9 col-sm-9 col-xs-9">
+                <div class="form-group">
+                    <input type="text" id="query" name="query" class="form-control" placeholder="Search for position eg. System Engineer, Software Engg etc.">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                <button type="submit" class="btn btn-success">SEARCH</button>
+            </div>
+        </form>
+    </div>
+        <br><br>
+           <%
+               try{
+               JSONObject object= JsonProvider.getObject();
+               if(object!=null){
+               JSONArray array=object.getJSONArray("posts");
 
-        <div class="line"></div>
+                   for (int i=0;i<array.length();i++){
+                       String position=array.getJSONObject(i).getString("position");
+                       String salary=array.getJSONObject(i).getString("salary");
+                       String location=array.getJSONObject(i).getString("location");
+                       String openings=array.getJSONObject(i).getString("openings");
+                       String eligibility=array.getJSONObject(i).getString("eligibility");
+                       String description=array.getJSONObject(i).getString("description");
+                       String date_of_post=array.getJSONObject(i).getString("date_of_post");
+           %>
 
-        <h2>Lorem Ipsum Dolor</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-9 col-lg-offset-1 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 w3-card">
+                <!--JOB ID:<br>-->
+                <div style="color: rgba(165,81,31,0.98);
+        font-size: large;
 
-        <div class="line"></div>
+    "><B><%= position %></B></div><br>
+                <div style="font-family:'Comic Sans MS' ">
+                    Salary: <%= salary %><br><br>
+                    Location: <%= location %><br><br>
+                    <!--<div style="text-align: right"><button class="btn btn-success">Apply</button></div> -->
+                    <hr style="height:1px;border:none;color:rgba(144,151,156,0.96);background-color:rgba(144,151,156,0.96);">
 
-        <h2>Lorem Ipsum Dolor</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <B style="color: #0f0f0f">No. of openings: </B><%= openings %><br><br>
+                    <B style="color: #0f0f0f">Eligibility:</B><br> <%= eligibility %><br><br>
+                    <B style="color: #0f0f0f">Job Description:</B><br> <%= description %><br><br>
+                </div>
+                <div style="text-align: right">Posted on: <B style="color: rgba(114,118,123,0.96)"><%= date_of_post %></B></div><br>
+            </div>
 
-        <div class="line"></div>
+        </div>
+        <br><br>
 
-        <h3>Lorem Ipsum Dolor</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-
+        <%
+                   }
+                }
+               }catch (Exception e){
+                e.printStackTrace();
+            }
+            %>
     </div>
 </div>
 
@@ -168,6 +218,24 @@
             $('.collapse.in').toggleClass('in');
             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
+    });
+</script>
+<script>
+   var form=$('#searchform');
+    form.submit(function (e) {
+    if($('#query').val().trim()==''){
+        swal("Oops","You have probably entered only spaces","error");
+    }else{
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data : form.serialize(),
+            dataType: 'text',
+            success: function(data){
+                setTimeout(location.reload.bind(location), 500);            }
+        });
+    }
+    e.preventDefault();
     });
 </script>
 </body>

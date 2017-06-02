@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.bean.JsonProvider;
 import com.bean.Post;
 import com.model.JobID;
 import com.model.JobOperation;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.*;
@@ -65,6 +67,37 @@ public class Controller extends HttpServlet {
         }
         if (action.equalsIgnoreCase("gotocandidateregister")){
             request.getRequestDispatcher("Candidate/register.jsp").forward(request,response);
+        }
+        if (action.equalsIgnoreCase("fromsearchjob")){
+            String query=request.getParameter("query");
+
+            JobOperation jb=new JobOperation();
+            JSONObject object=new JSONObject();
+            try {
+                ArrayList<Post> list=jb.getqueryPost(query);
+                JSONArray array=new JSONArray();
+                for (Post p:list){
+                    JSONObject j=new JSONObject();
+                    j.put("jobid",p.getJobid());
+                    j.put("position",p.getPosition());
+                    j.put("salary",p.getSalary());
+                    j.put("location",p.getLocation());
+                    j.put("openings",p.getOpenings());
+                    j.put("eligibility",p.getEligibility());
+                    j.put("description",p.getDescription());
+                    j.put("date_of_post",p.getDate_of_post());
+                    array.put(j);
+                }
+                object.put("posts",array);
+                 System.out.print("JSON:\n" + object.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            JsonProvider jp=new JsonProvider();
+            jp.setObject(object);
+            jp=null;
+            response.setContentType("text/plain");
+            response.getWriter().write("");
         }
 
     }

@@ -2,6 +2,7 @@ package com.controller;
 
 import com.bean.Candidate;
 import com.bean.HR;
+import com.bean.JsonProvider;
 import com.bean.Parent;
 import com.model.Account;
 import org.mindrot.jbcrypt.BCrypt;
@@ -116,6 +117,8 @@ public class AccountController extends HttpServlet {
                         session.setAttribute("session_name",name);
                         session.setAttribute("session_email",email);
                         request.getRequestDispatcher("/Candidate/landing.jsp").forward(request,response);
+                    }else {
+                        request.getRequestDispatcher("index.jsp").forward(request,response);
                     }
 
                 }catch (Exception e){
@@ -135,6 +138,7 @@ public class AccountController extends HttpServlet {
             deleteCookie(request,response);   // method to delete cookie press Ctrl and click on deleteCookie() :)
 
             //now we need to redirect the user to login page :)
+            JsonProvider.setObject(null);
             response.sendRedirect("index.jsp");
         }
     }
