@@ -22,27 +22,6 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="assets/customCSS/style2.css">
 
-    <script language="javascript">
-
-        function getApplications() {
-            $("#content").empty();
-            $("#content").load("HR/applications.jsp");
-        }
-        function getHome() {
-            $("#content").empty();
-            $("#content").load("HR/home.jsp");
-        }
-        function getpostjob(){
-            $("#content").empty();
-            $("#content").load("HR/postjob.jsp");
-        }
-        function getAllPosts() {
-            $("#content").empty();
-            $("#content").load("HR/posts.jsp");
-
-        }
-
-    </script>
     <style>
         .w3-card{
             box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -51,6 +30,30 @@
         }
 
     </style>
+    <script>
+        function loadhomepage() {
+            $('#sortform').show();
+            $('.row').show();
+            $('#posts').show();
+            $('#appliedjobs').empty();
+            $('#editprofile').empty();
+        }
+
+        function loadappliedjobs() {
+            $('#sortform').hide();
+            $('.row').hide();
+            $('#posts').hide();
+            $('#appliedjobs').load('Candidate/appliedjobs.jsp');
+            $('#editprofile').empty();
+        }
+        function loadeditprofile() {
+            $('#sortform').hide();
+            $('.row').hide();
+            $('#posts').hide();
+            $('#appliedjobs').empty();
+            $('#editprofile').load('Candidate/editprofile.jsp');
+        }
+    </script>
 </head>
 
 <body>
@@ -78,11 +81,10 @@
         %>
 
         <ul class="list-unstyled components">
-            <li><a href="#" >Home</a></li>
-            <li><a href="#" >Post JOB</a></li>
-            <li><a href="#" >View Applicants</a></li>
-            <li><a href="#" >All job posts</a></li>
-            <li><a href="#" >Edit your profile</a></li>
+            <li><a href="#" onclick="loadhomepage()">Search jobs</a></li>
+            <li><a href="#" onclick="loadappliedjobs()">Applied jobs</a></li>
+            <li><a href="#" onclick="loadeditprofile()">Edit your profile</a></li>
+
             <li>
                 <a href="<%= request.getContextPath() %>/AccountController?action=logout">Logout</a>
             </li>
@@ -131,14 +133,17 @@
             </div>
         </form>
     </div><br>
-    <div id="posts">
+        <div id="posts">
 
-    </div>
+        </div>
+        <div id="appliedjobs">
+
+        </div>
+        <div id="editprofile">
+
+        </div>
     </div>
 </div>
-
-
-
 
 
 
@@ -205,6 +210,8 @@
 
         }
     });
+
+
 </script>
 </body>
 </html>

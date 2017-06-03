@@ -12,4 +12,6 @@ private static JSONObject object;
     public static void setObject(JSONObject obj) {
         object=obj;
     }
+
+
 }

@@ -49,7 +49,8 @@ public class Controller extends HttpServlet {
             Date date=new Date();
             String stringdate=df.format(date);
 
-            int randomId=JobID.getID(position);
+
+            String randomId=JobID.getID();
 
             JobOperation jb=new JobOperation();
             try {

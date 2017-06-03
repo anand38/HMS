@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="com.bean.JsonProvider" %>
 <%@ page import="org.json.JSONArray" %><%--
@@ -11,6 +12,8 @@
 <html>
 <head>
     <title>POSTS</title>
+    <link href="assets/css/sweetalert2.min.css" rel="stylesheet">
+    <script src="assets/js/sweetalert2.min.js"></script>
 </head>
 <body>
 <%
@@ -20,6 +23,8 @@
             JSONArray array=object.getJSONArray("posts");
 
             for (int i=0;i<array.length();i++){
+                String jobid=array.getJSONObject(i).getString("jobid");
+                System.out.println("JOB ID:"+jobid);
                 String position=array.getJSONObject(i).getString("position");
                 String salary=array.getJSONObject(i).getString("salary");
                 String location=array.getJSONObject(i).getString("location");
@@ -39,7 +44,7 @@
         <div style="font-family:'Comic Sans MS' ">
             Salary: <%= salary %><br><br>
             Location: <%= location %><br><br>
-            <!--<div style="text-align: right"><button class="btn btn-success">Apply</button></div> -->
+            <div style="text-align: right"><button class="btn btn-danger applyjob" value=<%= jobid %>>Apply</button></div>
             <hr style="height:1px;border:none;color:rgba(144,151,156,0.96);background-color:rgba(144,151,156,0.96);">
 
             <B style="color: #0f0f0f">No. of openings: </B><%= openings %><br><br>
@@ -59,5 +64,28 @@
         e.printStackTrace();
     }
 %>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>
+    $('.applyjob').click(function () {
+        var jobid=$(this).attr('value');
+        $.ajax({
+            url: 'JobApplicationController',
+            type: 'POST',
+            data:{
+                action: 'applyjob',
+                job_id:jobid
+            },
+            success: function(data) {
+                if (data == '1') {
+                    swal('', 'You have already applied for this job', 'info')
+                } else {
+                    swal('', 'Successfully applied', 'success')
+                }
+            }
+
+        })
+    });
+
+</script>
 </body>
 </html>

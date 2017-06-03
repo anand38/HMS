@@ -9,7 +9,7 @@ public class Post implements Serializable {
     public Post(){
 
     }
-    private int jobid;
+    private String jobid;
     private String position;
     private String salary;
     private String location;
@@ -18,7 +18,7 @@ public class Post implements Serializable {
     private String description;
     private String date_of_post;
     //Getters
-    public int getJobid() {
+    public String getJobid() {
         return jobid;
     }
 
@@ -52,7 +52,7 @@ public class Post implements Serializable {
 
     //setters
 
-    public void setJobid(int jobid) {
+    public void setJobid(String jobid) {
         this.jobid = jobid;
     }
 

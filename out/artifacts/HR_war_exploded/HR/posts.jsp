@@ -61,7 +61,7 @@
     JSONArray array=object.getJSONArray("posts");
     try{
     for (int i=0;i<array.length();i++){
-        int jobid=array.getJSONObject(i).getInt("jobid");
+        String jobid=array.getJSONObject(i).getString("jobid");
         String position=array.getJSONObject(i).getString("position");
         String salary=array.getJSONObject(i).getString("salary");
         String location=array.getJSONObject(i).getString("location");

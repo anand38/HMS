@@ -7,19 +7,15 @@ import java.util.HashMap;
  * Here all the Id's assigned to position are defined
  */
 public class JobID {
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-   static HashMap<String,Integer> map=new HashMap<>();
-    private static void populatejobId(){
-        map.put("Software Engineer",426783919);
-        map.put("Technical Lead",479613509);
-        map.put("Database Administrator",158476099);
-        map.put("Project Manager",923814759);
-        map.put("System Engineer",250617389);
-        map.put("Junior Consultant",701243569);
-        map.put("Hadoop Developer",921387509);
-    }
-    public static int getID(String position){
-    populatejobId();
-    return map.get(position);
+    public static String getID() {
+        int count=10;
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
     }
 }
