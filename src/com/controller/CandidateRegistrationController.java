@@ -1,3 +1,6 @@
+//This servlet is responsible to handle candidate registration and upload his/her resume
+
+
 package com.controller;
 
 import com.model.Account;
@@ -16,13 +19,12 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by anand38 on 3/6/17.
- */
-public class Updater extends HttpServlet {
+public class CandidateRegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
+            String email="";
+            String password="";
             String highest_degree="";
             String college_name="";
             String course="";
@@ -51,6 +53,12 @@ public class Updater extends HttpServlet {
 
                     //Form data here
 
+                    if (item.getFieldName().equalsIgnoreCase("email")){
+                        email=item.getString();
+                    }
+                    if (item.getFieldName().equalsIgnoreCase("password")){
+                        password=item.getString();
+                    }
                     if (item.getFieldName().equalsIgnoreCase("highest_degree")){
                         highest_degree=item.getString();
                     }
@@ -97,9 +105,8 @@ public class Updater extends HttpServlet {
             //enter data in database
             Account account = new Account();
             try {
-                account.updateCandidateDetails((String)request.getSession().getAttribute("session_email"),highest_degree,college_name, course,
+                account.registerCandidate(email, password, highest_degree,college_name, course,
                         specialization, monthofyop + " " + yearofyop, name, gender, dob, contact,resume);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -113,10 +120,8 @@ public class Updater extends HttpServlet {
                 e.printStackTrace();
             }
             request.getRequestDispatcher("index.jsp").forward(request, response);
-            //System.out.println(email+password+highest_degree+college_name+course+specialization+monthofyop+yearofyop+name+gender+dob+contact);
+            System.out.println(email+password+highest_degree+college_name+course+specialization+monthofyop+yearofyop+name+gender+dob+contact);
         }
 
     }
-
-
 }

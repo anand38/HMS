@@ -33,7 +33,7 @@
         REGISTER FOR FREE AND FIND YOUR DREAM JOB!!
     </div>
 </div>
-<form id="myform" name="myform" class="form-horizontal" style="margin-top: 2%" method="post" enctype = "multipart/form-data" action="<%= request.getContextPath() %>/Updater">
+<form id="myform" name="myform" class="form-horizontal" style="margin-top: 2%" method="post" enctype = "multipart/form-data" action="<%= request.getContextPath() %>/CandidateRegistrationController">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1  col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" style="margin-top: 20px;">
             <div style="border-bottom: 1px solid rgba(29,41,19,0.57)"><B>Login Details:</B><br></div>

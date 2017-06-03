@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="assets/customCSS/style2.css">
-
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+    <script src="assets/js/sweetalert2.min.js"></script>
     <style>
         .w3-card{
             box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
@@ -47,11 +48,22 @@
             $('#editprofile').empty();
         }
         function loadeditprofile() {
-            $('#sortform').hide();
-            $('.row').hide();
-            $('#posts').hide();
-            $('#appliedjobs').empty();
-            $('#editprofile').load('Candidate/editprofile.jsp');
+            swal({
+                title: '',
+                text: "Are you sure you want to edit your profile",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then(function () {
+                $('#sortform').hide();
+                $('.row').hide();
+                $('#posts').hide();
+                $('#appliedjobs').empty();
+                $('#editprofile').load('Candidate/editprofile.jsp');
+            })
+
         }
     </script>
 </head>

@@ -15,8 +15,8 @@
         <servlet-class>com.controller.AccountController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Updater</servlet-name>
-        <servlet-class>com.controller.Updater</servlet-class>
+        <servlet-name>CandidateRegistrationController</servlet-name>
+        <servlet-class>com.controller.CandidateRegistrationController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JsonProvider</servlet-name>
@@ -25,6 +25,10 @@
     <servlet>
         <servlet-name>JobApplicationController</servlet-name>
         <servlet-class>com.controller.JobApplicationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Updater</servlet-name>
+        <servlet-class>com.controller.Updater</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -35,8 +39,8 @@
         <url-pattern>/AccountController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Updater</servlet-name>
-        <url-pattern>/Updater</url-pattern>
+        <servlet-name>CandidateRegistrationController</servlet-name>
+        <url-pattern>/CandidateRegistrationController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JsonProvider</servlet-name>
@@ -45,5 +49,9 @@
     <servlet-mapping>
         <servlet-name>JobApplicationController</servlet-name>
         <url-pattern>/JobApplicationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Updater</servlet-name>
+        <url-pattern>/Updater</url-pattern>
     </servlet-mapping>
 </web-app>
