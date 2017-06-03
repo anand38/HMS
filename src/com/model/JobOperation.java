@@ -103,4 +103,37 @@ public class JobOperation {
         dbClose();
         return list;
     }
+
+    public ArrayList<Post> get_recent_to_old_Post(String query) throws SQLException, ClassNotFoundException {
+        dbConnect();
+        ArrayList<Post> list=new ArrayList<>();
+        String sql="select * from JOB where position like ? ORDER BY id DESC";
+        PreparedStatement pstmt=con.prepareStatement(sql);
+        pstmt.setString(1,"%"+query+"%");
+        ResultSet rst=pstmt.executeQuery();
+        while (rst.next()){
+            Post p=new Post();
+            p.setJobid(rst.getInt("job_id"));
+            p.setPosition(rst.getString("position"));
+            p.setSalary(rst.getString("salary"));
+            p.setLocation(rst.getString("location"));
+
+            String temp=rst.getString("eligibility").replace("\r\n","<BR>");
+            String eligibility=temp.replace("\n","<BR>");
+            p.setEligibility(eligibility);
+
+            temp=rst.getString("description").replace("\r\n","<BR>");
+            String description=temp.replace("\n","<BR>");
+            p.setDescription(description);
+
+            p.setOpenings(rst.getString("openings"));
+            p.setDate_of_post(rst.getString("date_of_post"));
+
+            list.add(p);
+        }
+
+        dbClose();
+        return list;
+
+    }
 }

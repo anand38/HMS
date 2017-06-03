@@ -41,6 +41,7 @@
             $("#content").load("HR/posts.jsp");
 
         }
+
     </script>
     <style>
         .w3-card{
@@ -48,6 +49,7 @@
             padding-top: 15px;
             padding-bottom: 15px;
         }
+
     </style>
 </head>
 
@@ -76,33 +78,6 @@
         %>
 
         <ul class="list-unstyled components">
-
-            <!--
-
-<li class="active">
-    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-    <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a href="#">Post JOB</a></li>
-        <li><a href="#">View Applications</a></li>
-        <li><a href="#">Edit your profile</a></li>
-    </ul>
-</li>
-<li>
-    <a href="#">About</a>
-    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-    <ul class="collapse list-unstyled" id="pageSubmenu">
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
-    </ul>
-</li>
-<li>
-    <a href="#">Portfolio</a>
-</li>
-<li>
-    <a href="#">Contact</a>
-</li>
--->
             <li><a href="#" >Home</a></li>
             <li><a href="#" >Post JOB</a></li>
             <li><a href="#" >View Applicants</a></li>
@@ -119,16 +94,29 @@
     <!-- Page Content Holder -->
     <div id="content">
         <nav class="navbar navbar-default">
-            <div class="container-fluid">
-
-                <div class="navbar-header">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                        <i class="glyphicon glyphicon-align-left"></i>
-                    </button>
-
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                            <i class="glyphicon glyphicon-align-left"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+                <div class="col-lg-offset-9 col-md-offset-8 col-sm-offset-9 col-xs-offset-8">
+                    <form id="sortform" class="form-inline" method="post" action="/Controller">
+                        <input type="hidden" name="action" value="sortby">
+                        <div class="form-group">
+                            <label for="sortby" class="hidden-sm hidden-xs control-label">Sort by</label>
+                                <select name="sortby" class="form-control" id="sortby">
+                                    <option value="old" selected="true">Oldest first</option>
+                                    <option value="recent">Recent first</option>
+                                </select>
+                        </div>
+                    </form>
+                </div>
+
         </nav>
+
+
     <div class="row">
         <form method="post" id="searchform" action="/Controller">
             <input type="hidden" name="action" value="fromsearchjob">
@@ -142,54 +130,10 @@
                 <button type="submit" class="btn btn-success">SEARCH</button>
             </div>
         </form>
+    </div><br>
+    <div id="posts">
+
     </div>
-        <br><br>
-           <%
-               try{
-               JSONObject object= JsonProvider.getObject();
-               if(object!=null){
-               JSONArray array=object.getJSONArray("posts");
-
-                   for (int i=0;i<array.length();i++){
-                       String position=array.getJSONObject(i).getString("position");
-                       String salary=array.getJSONObject(i).getString("salary");
-                       String location=array.getJSONObject(i).getString("location");
-                       String openings=array.getJSONObject(i).getString("openings");
-                       String eligibility=array.getJSONObject(i).getString("eligibility");
-                       String description=array.getJSONObject(i).getString("description");
-                       String date_of_post=array.getJSONObject(i).getString("date_of_post");
-           %>
-
-        <div class="row">
-            <div class="col-lg-offset-2 col-lg-9 col-lg-offset-1 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 w3-card">
-                <!--JOB ID:<br>-->
-                <div style="color: rgba(165,81,31,0.98);
-        font-size: large;
-
-    "><B><%= position %></B></div><br>
-                <div style="font-family:'Comic Sans MS' ">
-                    Salary: <%= salary %><br><br>
-                    Location: <%= location %><br><br>
-                    <!--<div style="text-align: right"><button class="btn btn-success">Apply</button></div> -->
-                    <hr style="height:1px;border:none;color:rgba(144,151,156,0.96);background-color:rgba(144,151,156,0.96);">
-
-                    <B style="color: #0f0f0f">No. of openings: </B><%= openings %><br><br>
-                    <B style="color: #0f0f0f">Eligibility:</B><br> <%= eligibility %><br><br>
-                    <B style="color: #0f0f0f">Job Description:</B><br> <%= description %><br><br>
-                </div>
-                <div style="text-align: right">Posted on: <B style="color: rgba(114,118,123,0.96)"><%= date_of_post %></B></div><br>
-            </div>
-
-        </div>
-        <br><br>
-
-        <%
-                   }
-                }
-               }catch (Exception e){
-                e.printStackTrace();
-            }
-            %>
     </div>
 </div>
 
@@ -232,10 +176,34 @@
             data : form.serialize(),
             dataType: 'text',
             success: function(data){
-                setTimeout(location.reload.bind(location), 500);            }
+                $('#posts').load("Candidate/posts.jsp");
+            }
         });
     }
     e.preventDefault();
+    });
+</script>
+<script>
+    $('#sortby').change(function () {
+        if($('#query').val().trim()==''){
+
+        }else{
+            var x=$('#sortby').val();
+            $.ajax({
+                url: 'Controller',
+                type: 'POST',
+                data:{
+                    action: 'fromsortby',
+                    operation: x,
+                    query: $('#query').val()
+                },
+                success:function(data){
+                    $('#posts').empty();
+                    $('#posts').load('Candidate/posts.jsp');
+                }
+            });
+
+        }
     });
 </script>
 </body>

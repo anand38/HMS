@@ -99,6 +99,77 @@ public class Controller extends HttpServlet {
             response.setContentType("text/plain");
             response.getWriter().write("");
         }
+        if (action.equalsIgnoreCase("fromsortby")){
+            System.out.println("I am here");
+
+            String operation=request.getParameter("operation");
+            System.out.println("Operation:"+operation);
+            if (operation.equalsIgnoreCase("recent")){
+                String query=request.getParameter("query");
+
+                JobOperation jb=new JobOperation();
+                JSONObject object=new JSONObject();
+                try {
+                    ArrayList<Post> list=jb.get_recent_to_old_Post(query);
+                    JSONArray array=new JSONArray();
+                    for (Post p:list){
+                        JSONObject j=new JSONObject();
+                        j.put("jobid",p.getJobid());
+                        j.put("position",p.getPosition());
+                        j.put("salary",p.getSalary());
+                        j.put("location",p.getLocation());
+                        j.put("openings",p.getOpenings());
+                        j.put("eligibility",p.getEligibility());
+                        j.put("description",p.getDescription());
+                        j.put("date_of_post",p.getDate_of_post());
+                        array.put(j);
+                    }
+                    object.put("posts",array);
+                    System.out.print("JSON:\n" + object.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                JsonProvider jp=new JsonProvider();
+                jp.setObject(object);
+                jp=null;
+                response.setContentType("text/plain");
+                response.getWriter().write("");
+            }else{
+                System.out.println("Now I am here");
+
+                String query=request.getParameter("query");
+
+                JobOperation jb=new JobOperation();
+                JSONObject object=new JSONObject();
+                try {
+                    ArrayList<Post> list=jb.getqueryPost(query);
+                    JSONArray array=new JSONArray();
+                    for (Post p:list){
+                        JSONObject j=new JSONObject();
+                        j.put("jobid",p.getJobid());
+                        j.put("position",p.getPosition());
+                        j.put("salary",p.getSalary());
+                        j.put("location",p.getLocation());
+                        j.put("openings",p.getOpenings());
+                        j.put("eligibility",p.getEligibility());
+                        j.put("description",p.getDescription());
+                        j.put("date_of_post",p.getDate_of_post());
+                        array.put(j);
+                    }
+                    object.put("posts",array);
+                    System.out.print("JSON:\n" + object.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                JsonProvider jp=new JsonProvider();
+                jp.setObject(object);
+                jp=null;
+                response.setContentType("text/plain");
+                response.getWriter().write("");
+
+            }
+        }
+
 
     }
 
